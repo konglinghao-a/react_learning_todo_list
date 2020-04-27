@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <!-- 让react这个框架能够作用到我们页面的标签上，一般是创建一个div容器 -->
+  <div id="app"></div>
+  <!-- 导入js文件， -->
+  <script src="../../js/react.development.js"></script>
+  <script src="../../js/react-dom.development.js"></script>
+  <script src="../../js/babel.min.js"></script>
+  <script src="../../js/prop-types.js"></script>
+  <script type="text/babel">
+    //输出一个标签，即创建一个标签然后插入到app里面
+    //1、获取页面真实的容器元素
+    const containerDiv = document.getElementById('app');
+    //2、jsx语法，创建虚拟DOM对象；这里我们创建好的在内存当中的DOM就是虚拟DOM
+    const vDom = <div>你好呀，孔桑</div>
+    /*
+    这个时候浏览器是报错的，因为jsx是比较高阶的语法，浏览器并不认识，因此我们需要转码（用babel）
+    */
+    //3、将虚拟DOM渲染到页面元素上去（利用react语法来渲染）
+    //这个render方法就是你要把谁渲染到什么地方去
+    ReactDOM.render(vDom, containerDiv);
+
+    /*
+    简化之后就是
+    var vDom = <div>你好</div>
+    ReactDOM.render(vDom, document.getElementById('app'));
+    */
+  </script>
+</body>
+</html>

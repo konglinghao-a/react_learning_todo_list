@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app"></div>
+  <script src="../../js/react.development.js"></script>
+  <script src="../../js/react-dom.development.js"></script>
+  <script src="../../js/babel.min.js"></script>
+  <script src="../../js/prop-types.js"></script>
+  <script type="text/html">
+    //a、多重标签嵌套
+    //如果是多个的话就必须有个根容器
+
+    ReactDOM.render(
+      <div>
+        <h2>多层标签嵌套</h2>
+        <p>我是一个</p>
+      </div>
+    , document.getElementById('app'));
+  </script>
+  <script type="text/html">
+    //b、js的变量、表达式要写在 {} 里面
+
+    const str = '孔桑~';
+    ReactDOM.render(
+      <div>
+        <div>{str} {1+1}</div>  
+      </div>  
+    , document.getElementById('app'));
+  </script>
+  <script type="text/html">
+    //c、内联样式通过对象方式引入
+
+    const myStyle = {
+      color: 'purple',
+      backgroundColor: 'pink',
+      //react里面不能写px，没有单位和有单位一样
+      fontSize: 30
+    }
+
+    ReactDOM.render(
+      <div>
+        <h2>来点颜色</h2>
+        <div style={myStyle}>客官，颜色来了！</div>
+      </div>  
+    , document.getElementById('app'));
+
+  </script>
+  <script type="text/babel">
+    //数组的渲染
+    const dataArr = [
+      { name: '张三', age: 18 },
+      { name: '李四', age: 18 },
+      { name: '赵五', age: 18 },
+      { name: '王六', age: 18 },
+    ];
+
+    //1、根据数据创建虚拟DOM
+    const vDom = (
+      <ul>
+        {
+          dataArr.map((item, index) => (
+            //如果我们不加key的话，在内存当中它也不知道是不是一样的所以会警告
+            //返回值是个数组，也就是说把虚拟DOM放到一个数组里它就会渲染出来
+            <li key={index}>{index + 1} -- 姓名：{item.name} -- 年龄：{item.age}</li>
+          ))
+        }
+      </ul>
+    )
+
+    ReactDOM.render(vDom, document.getElementById('app'));
+
+  </script>
+</body>
+
+</html>

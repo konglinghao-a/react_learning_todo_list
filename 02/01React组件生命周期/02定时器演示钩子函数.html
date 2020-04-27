@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app"></div>
+  <script src="../../js/react.development.js"></script>
+  <script src="../../js/react-dom.development.js"></script>
+  <script src="../../js/babel.min.js"></script>
+  <script src="../../js/prop-types.js"></script>
+  
+  <script type="text/babel">
+    class Life extends React.Component {
+      //1、初始化阶段
+      constructor(props) {
+        /*
+        constructor一般是用于我们打通继承以及定义一些属性
+        */
+        super(props);
+        this.state = {
+          age: 1
+        }
+        console.log('constructor');
+      }
+
+      componentWillMount() {
+        console.log('componentWillMount');
+      }
+
+      render() {
+        //render比较特殊，其他钩子函数可以不实现，但是render必须实现
+        console.log('render');
+        return (
+          <div>
+            <h2>我是树妖，我今年{this.state.age}岁</h2>
+            {/*这是react中卸载组件的方法，利用ReactDOM.unmountComponentAtNode*/}
+            <button onClick={() => {
+              ReactDOM.unmountComponentAtNode(document.getElementById('app'));
+            }}>我被砍了</button>
+          </div>
+        )
+      }
+
+      //在页面渲染完毕之后要做的操作一般写在这里
+      componentDidMount() {
+        console.log('componentDidMount');
+        //开启定时器
+        this.intervalId = setInterval(() => {
+          console.log('定时器在工作了');
+          this.setState({
+            age: this.state.age + 1
+          })
+        }, 2000);
+      }
+
+      //2、更新阶段
+      componentWillUpdate() {
+        console.log('componentWillUpdate');
+      }
+
+      //render(){}
+
+      componentDidUpdate() {
+        console.log('componentDidUpdate');
+      }
+
+
+      //3、卸载阶段
+      componentWillUnmount() {
+        console.log('componentWillUnmount');
+        //在卸载阶段可以清除定时器
+        clearInterval(this.intervalId)
+      }
+
+      //4、错误处理（围绕整个生命周期都有错误处理）
+      componentDidCatch() {
+        console.log('componentDidCatch');
+      }
+    }
+
+    ReactDOM.render(<Life />, document.getElementById('app')); 
+  </script>
+</body>
+</html>

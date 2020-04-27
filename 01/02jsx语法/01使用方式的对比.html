@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app1"></div>
+  <div id="app2"></div>
+  <!--
+  往容器中插入一个span标签, class为: "it-like",
+  内容为: "撩课学院"。 两种实现方式: a) 通过典型js方式;  b) JSX方式?
+  -->
+  <script src="../../js/react.development.js"></script>
+  <script src="../../js/react-dom.development.js"></script>
+  <script src="../../js/babel.min.js"></script>
+  <script src="../../js/prop-types.js"></script>
+  <script>
+    //1、典型js方式，创建变量
+    let myClass = 'it-like';
+    let myContent = '孔桑~';
+
+    //2、创建DOM元素，平时是domcument.createElement, 现在用React.createElement()
+    //第一个参数为标签名，第二个参数为属性值，第三个参数为内容。
+    const vDom = React.createElement('span', { className: myClass }, myContent);
+
+    //3、渲染
+    ReactDOM.render(vDom, document.getElementById('app1'));
+  </script>
+  <script type="text/babel">
+    //jsx方式
+    //如果你要传变量的话需要加大括号
+    /*
+    jsx里面运用了各种算法，导致它比原生js这么写效率要高一点
+    */
+    const vDom1 = <span className={myClass}>{myContent}</span>
+    ReactDOM.render(vDom1, document.getElementById('app2'));
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+
+  </div>
+  <script src="../../js/react.development.js"></script>
+  <script src="../../js/react-dom.development.js"></script>
+  <script src="../../js/babel.min.js"></script>
+  <script src="../../js/prop-types.js"></script>
+  <script type="text/babel">
+    class Kong extends React.Component {
+      render() {
+        return (
+          //在props前面加上this，表示当前的实例化对象的属性
+          //在构造函数中需要显示地定义形参props，但是这里会隐式定义
+          <div>
+            <p>{this.props.name}</p>
+            <p>{this.props.age}</p>
+            <p>{this.props.colleges}</p>
+          </div>
+        )
+      }
+    }
+    ReactDOM.render(<Kong name="张三" age={18} colleges={['node', 'js']}/>, document.getElementById('app'))
+  </script>
+</body>
+</html>

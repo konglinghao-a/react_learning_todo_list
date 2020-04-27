@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app"></div>
+  <script src="../../js/react.development.js"></script>
+  <script src="../../js/react-dom.development.js"></script>
+  <script src="../../js/babel.min.js"></script>
+  <script src="../../js/prop-types.js"></script>
+  <script type="text/babel">
+    //1、组件类
+    class Dog extends React.Component {
+      constructor(props) {
+        //把上下继承打通
+        super(props);
+        /*
+        在react中，有些需要改变的属性就用state，不需要改变的就用props, 
+        props只能读，不能改
+        */
+
+        //狗：姓名、性别、年龄、狗友
+        //2、初始化state
+        this.state = {
+          age: 1, //年龄
+          dogFriends: ['node', 'js'] //狗友
+        }
+      }
+
+      //3、设置props属性的默认值
+      static defaultProps = {
+        name: '旺财',
+        gender: '公'
+      };
+
+      //4、设置props的类型(约束props里面的值)，这个时候要引入prop-type.js文件
+      static propTypes = {
+        name: PropTypes.string.isRequired,//必须要传的字符串
+        gender: PropTypes.string
+      }
+
+      render() {
+        const { name, gender } = this.props;
+        const { age, dogFriends } = this.state;
+        return (
+          <div>
+            <p>狗名: {name}, 性别：{gender}</p>
+            <p>我今年{age}岁了</p>
+            <p>我有很多狗友：</p>
+            <ul>
+              {
+                dogFriends.map((item, index) => {
+                  return (
+                    <li key={index}>{item}</li>
+                  )
+                })
+              }
+            </ul>
+            <button onClick={() => this.addYear()}>增加一岁</button>
+          </div>
+        )
+      }
+      addYear() {
+        //1、增加狗友
+        let tempArr = this.state.dogFriends;
+        tempArr.push('狗友' + Math.floor(Math.random() * 100 + 1));
+        this.setState({
+          age: this.state.age + 1,
+          dogFriends: tempArr
+        })
+      }
+    }
+
+    //给组件传值，传的值会挂在props对象上
+    ReactDOM.render(<Dog name="小花" />, document.getElementById('app'))
+  </script>
+</body>
+
+</html>

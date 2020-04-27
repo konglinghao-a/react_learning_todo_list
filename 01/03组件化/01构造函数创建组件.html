@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app"></div>
+  <script src="../../js/react.development.js"></script>
+  <script src="../../js/react-dom.development.js"></script>
+  <script src="../../js/babel.min.js"></script>
+  <script src="../../js/prop-types.js"></script>
+  <script type="text/html">
+    //构造函数创建组件
+
+    function Kong() {
+      return (
+        <div>
+          <h2>孔桑</h2>
+          <p>这是孔桑的介绍</p>
+        </div>
+      )
+    }
+    //把对象实例化以后就能渲染了，<Kong />这样就已经实例化了
+    /*
+    函数里面的数据是写死的，这是一个大问题；这就需要给构造函数传递参数
+    */
+    ReactDOM.render(
+      <Kong />
+      , document.getElementById('app')
+    );
+  </script>
+  <script type="text/html">
+    //利用构造函数的props可以进行传递参数
+
+    function Kong(props) {
+      return (
+        <div>
+          {/*下面实例化的时候传了个name属性，我们要进行接收*/}
+          <h2>我是{props.name}</h2>
+          <p>{props.colleges}</p>
+        </div>
+      )
+    }
+    ReactDOM.render(
+      <Kong name="孔桑" colleges={['h5', 'java', 'node']} />
+      , document.getElementById('app')
+    );
+    //那么，react里面怎么实现复合组件呢？（组件套组件）
+  </script>
+  <script type="text/babel">
+    //复合组件
+
+    function Name(props) {
+      return <p>我叫：{props.name}</p>
+    }
+
+    function Gender(props) {
+      return <p>我是：{props.gender}</p>
+    }
+
+    function Colleges(props) {
+      return <p>我叫：{props.colleges}</p>
+    }
+
+    function Kong() {
+      return (
+        <div>
+          <Name name="张三"/>
+          <Gender gender="男"/>
+          <Colleges colleges={['node', 'js']}/>
+        </div>
+      )
+    }
+    ReactDOM.render(<Kong />, document.getElementById('app'))
+  </script>
+</body>
+</html>
